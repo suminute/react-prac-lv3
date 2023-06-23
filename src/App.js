@@ -36,7 +36,7 @@ function App() {
   const [modalTwo, setModalTwo] = useState(false);
 
   const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("");
 
   return (
     <div>
@@ -86,13 +86,28 @@ function App() {
         <label>이름</label>
         <input value={name} onChange={(event) => setName(event.target.value)} />
         <label>가격</label>
-        <input value={parseInt(price).toLocaleString()} onChange={(event) => setPrice(event.target.value)} />
+        <input
+          value={price}
+          onChange={(event) => {
+            let value = event.target.value;
+            const numCheck = /^[0-9,]/.test(value);
+            if (!numCheck && value) {
+              alert("숫자를 입력하세요");
+              return;
+            }
+            if (numCheck) {
+              const numValue = value.replaceAll(",", "");
+              value = numValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+            setPrice(value);
+          }}
+        />
         <StButton
           color={getButtonColor("Small").backgroundColor}
           style={getButtonColor("Small").style}
           onClick={(event) => {
             event.preventDefault();
-            alert(`{name : ${name}, price : ${price}}`);
+            alert(`{name : ${name}, price : ${price.replaceAll(",", "")}}`);
           }}>
           저장
         </StButton>
