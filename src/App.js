@@ -129,6 +129,12 @@ function App() {
           <option>스프링</option>
           <option>리액트네이티브</option>
         </select>
+        <select className='slect-two'>
+          <option>리액트</option>
+          <option>자바</option>
+          <option>스프링</option>
+          <option>리액트네이티브</option>
+        </select>
       </div>
     </div>
   );
